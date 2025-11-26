@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SEC RECORD MAKER</title>
+  <link rel="icon" type="image/png" href="assets/infinity.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- QRious (QR code) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+  <!-- JS (order matters) -->
+  <script src="js/block-handler.js" defer></script>
+  <script src="js/pdf-generator.js" defer></script>
+  <script src="js/preview.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <!-- Hidden logo image (used only for first page of PDF) -->
+  <img id="collegeLogo" src="assets/logo.png" alt="College Logo" style="display:none;" />
+
+  <div id="app" class="app-root">
+    <!-- LEFT PANE – EDITOR -->
+    <div class="pane left-pane">
+      <header class="app-header">
+        <h1>SEC RECORD MAKER</h1>
+        <p class="subtitle">Table of Contents PDF Maker</p>
+      </header>
+
+      <!-- Course & student details -->
+      <section class="card">
+        <h2 class="card-title">Course & Student Details</h2>
+
+        <div class="form-row">
+          <label for="courseTitle">Course Title</label>
+          <input type="text" id="courseTitle" placeholder="SH2221 – Linear Algebra Lab" />
+        </div>
+
+        <div class="form-row">
+          <label for="studentName">Name</</label>
+          <input type="text" id="studentName" placeholder="Your full name" />
+        </div>
+
+        <div class="form-row">
+          <label for="registerNumber">Register Number</label>
+          <input type="text" id="registerNumber" placeholder="12 digit register number" />
+        </div>
+
+        <div class="form-row">
+          <label for="confirmDate">Date</label>
+          <input type="date" id="confirmDate" />
+        </div>
+      </section>
+
+      <!-- Experiment blocks container -->
+      <section class="card">
+        <div class="card-header-row">
+          <h2 class="card-title">Experiments</h2>
+          <span id="expCountBadge" class="badge">0 experiments</span>
+        </div>
+
+        <div id="experimentBlocksContainer" class="exp-blocks-container"></div>
+      </section>
+
+      <!-- PDF actions -->
+      <section class="card">
+        <div class="button-row">
+          <button id="previewPdfBtn" class="btn accent">Preview PDF</button>
+          <button id="downloadPdfBtn" class="btn primary">Download PDF</button>
+        </div>
+        <p id="errorMessage" class="error-message"></p>
+      </section>
+    </div>
+
+    <!-- RIGHT PANE – PREVIEW -->
+    <div class="pane right-pane" id="previewPane">
+      <div class="preview-header">
+        <div class="preview-title-wrap">
+          <h2>PDF Preview</h2>
+          <p class="preview-note">Live preview updates after you finish typing</p>
+        </div>
+        <button id="closePreviewBtn" class="btn secondary small">Close Preview</button>
+      </div>
+      <div class="preview-body">
+        <div class="preview-page-wrapper">
+          <iframe id="pdfPreviewFrame" title="PDF Preview"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEMPLATE FOR EXPERIMENT BLOCK -->
+  <template id="experimentBlockTemplate">
+    <div class="exp-block fade-in">
+      <div class="exp-block-header">
+        <span class="exp-block-title">Experiment <span class="exp-index">1</span></span>
+      </div>
+      <div class="exp-block-body">
+        <div class="grid-2">
+          <div class="form-row">
+            <label>Date</label>
+            <input type="date" class="exp-date" />
+          </div>
+          <div class="form-row">
+            <label>Marks</label>
+            <input type="number" class="exp-marks" placeholder="e.g. 100" />
+          </div>
+        </div>
+        <div class="form-row">
+          <label>Experiment Title</label>
+          <input type="text" class="exp-title" placeholder="SOLVING SYSTEM OF LINEAR EQUATIONS" />
+        </div>
+        <div class="form-row">
+          <label>Experiment Link</label>
+          <input type="text" class="exp-link" placeholder="https://github.com/..." />
+        </div>
+      </div>
+      <div class="exp-block-footer">
+        <button class="btn secondary small btn-clear-block">Clear This Experiment</button>
+        <button class="btn accent small btn-add-below">Add Experiment Below</button>
+      </div>
+    </div>
+  </template>
+</body>
+</html>
