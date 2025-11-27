@@ -280,14 +280,17 @@
 
     const nameText = "Name: " + (nameVal || "________________________");
     const regText = "Register Number: " + (regVal || "____________");
-    const dateText = "Date: " + (dateVal || "____________");
+    const dateText = "Date: " + (dateVal || " ");
+    const signatureText = "Learner Signature:                        ";
 
     const yLine1 = confirmationStartY + 7;
     const yLine2 = confirmationStartY + 14;
 
     doc.text(nameText, marginLeft, yLine1);
     doc.text(regText, pageWidth - marginRight, yLine1, { align: "right" });
+
     doc.text(dateText, marginLeft, yLine2);
+    doc.text(signatureText, pageWidth - marginRight, yLine2, { align: "right" });
 
     const blob = doc.output("blob");
     return URL.createObjectURL(blob);
