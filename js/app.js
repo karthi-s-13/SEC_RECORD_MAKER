@@ -103,10 +103,29 @@
       if (!ensureContentOrError()) return;
       const data = collectFormData();
       const blobUrl = window.PdfGenerator.generatePdfBlobUrl(data);
+      
+      // Get raw course title
+      let rawTitle = courseTitleInput.value.trim();
+
+      // Extract text after the first hypen
+      let cleaned = rawTitle.includes("-")
+        ? rawTitle.split("-")[1].trim()
+        : rawTitle;
+
+      //replace spaces with underscores & remove special chars
+      let fileName = cleaned
+        .replace(/[^a-zA-Z0-9 ]/g, "")
+        .trim()
+        .replace(/\s+/g, "_") + ".pdf";
+      
+      //Fall back if something goes wrong
+      if(fileName === ".pdf"){
+        fileName = "Lab_Record.pdf";
+      }
 
       const a = document.createElement("a");
       a.href = blobUrl;
-      a.download = "SH2221_Linear_Algebra_Lab_TOC.pdf";
+      a.download = fileName;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
