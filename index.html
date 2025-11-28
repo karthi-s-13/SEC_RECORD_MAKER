@@ -15,12 +15,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <!-- QRious (QR code) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+  <!-- DOCX -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.3.2/docx.umd.js"></script>
+
 
   <!-- JS (order matters) -->
   <script src="js/block-handler.js" defer></script>
   <script src="js/pdf-generator.js" defer></script>
   <script src="js/preview.js" defer></script>
+  <script src="js/docx-generator.js" defer></script>
   <script src="js/app.js" defer></script>
+  
 </head>
 <body>
   <!-- Hidden logo image (used only for first page of PDF) -->
@@ -74,6 +79,7 @@
         <div class="button-row">
           <button id="previewPdfBtn" class="btn accent">Preview PDF</button>
           <button id="downloadPdfBtn" class="btn primary">Download PDF</button>
+          <button id="downloadDocxBtn" class="btn primary">Export DOCX</button>
         </div>
         <p id="errorMessage" class="error-message"></p>
       </section>

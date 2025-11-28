@@ -6,6 +6,7 @@
   const confirmDateInput = document.getElementById("confirmDate");
 
   const previewPdfBtn = document.getElementById("previewPdfBtn");
+  const downloadDocxBtn = document.getElementById("downloadDocxBtn");
   const downloadPdfBtn = document.getElementById("downloadPdfBtn");
   const errorMessageEl = document.getElementById("errorMessage");
 
@@ -130,6 +131,33 @@
       a.click();
       document.body.removeChild(a);
       setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
+    });
+  }
+
+  if (downloadDocxBtn) {
+    downloadDocxBtn.addEventListener("click", () => {
+      if (!ensureContentOrError()) return;
+
+      const data = collectFormData();
+      const title = courseTitleInput.value.trim();
+
+      DocxGenerator.generateDocxBlob(data, title).then(blob => {
+      
+        // Create file name like PDF
+        let cleaned = title.includes("-")
+          ? title.split("-")[1].trim()
+         : title;
+
+        let fileName = cleaned
+          .replace(/[^a-zA-Z0-9 ]/g, "")
+          .trim()
+          .replace(/\s+/g, "_") + ".docx";
+
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = fileName;
+        a.click();
+      });
     });
   }
 })();
